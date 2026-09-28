@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+
+{% block title %}Saved Plans{% endblock %}
+
+{% block content %}
+
+<div class="container" style="padding: 50px 0;">
+
+    <div class="panel">
+        <h1>💾 Saved Plans</h1>
+
+        <p class="muted">
+            Your saved budget recommendations are shown here.
+        </p>
+    </div>
+
+    <div id="saved-plans-list" style="margin-top: 25px;">
+
+        <div class="panel">
+            Loading saved plans...
+        </div>
+
+    </div>
+
+    <div style="margin-top: 25px;">
+
+        <a href="/dashboard" class="btn secondary">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+
+<script>
+
+async function loadSavedPlans() {
+
+    const list = document.getElementById("saved-plans-list");
+
+    try {
+
+        const response = await fetch(
+            "/api/saved-plans",
+            {
+                method: "GET",
+                credentials: "include"
+            }
+        );
+
+        const data = await response.json();
+
+
+        if (!response.ok) {
+
+            list.innerHTML = `
+                <div class="panel">
+
+                    <h2>Unable to load saved plans</h2>
+
+                    <p class="muted">
+                        ${data.detail || "Something went wrong."}
+                    </p>
+
+                </div>
+            `;
+
+            return;
+        }
+
+
+        if (!Array.isArray(data) || data.length === 0) {
+
+            list.innerHTML = `
+                <div class="panel">
+
+                    <h2>No Saved Plans Yet 📭</h2>
+
+                    <p class="muted">
+                        Generate a recommendation and save it
+                        to see it here.
+                    </p>
+
+                </div>
+            `;
+
+            return;
+        }
+
+
+        list.innerHTML = data.map(function(plan) {
+
+            let icon = "📋";
+            let name = "Recommendation";
+
+
+            if (plan.planner_type === "home") {
+
+                icon = "🏠";
+                name = "Home Planner";
+
+            } else if (plan.planner_type === "party") {
+
+                icon = "🎉";
+                name = "Party Planner";
+
+            } else if (plan.planner_type === "jewelry") {
+
+                icon = "💎";
+                name = "Jewelry Planner";
+
+            }
+
+
+            const response = plan.response || {};
+
+            const title =
+                response.title ||
+                name + " Recommendation";
+
+            const summary =
+                response.summary ||
+                "Saved recommendation";
+
+            const budget =
+                Number(response.budget || 0);
+
+            const estimated =
+                Number(response.estimated_total || 0);
+
+
+            return `
+
+                <div
+                    class="panel"
+                    style="margin-bottom: 20px;"
+                >
+
+                    <div
+                        style="
+                            display:flex;
+                            justify-content:space-between;
+                            align-items:center;
+                            gap:10px;
+                            flex-wrap:wrap;
+                        "
+                    >
+
+                        <h2>
+                            ${icon} ${name}
+                        </h2>
+
+                        <span class="muted">
+                            ${plan.created_at || ""}
+                        </span>
+
+                    </div>
+
+
+                    <h3>
+                        ${title}
+                    </h3>
+
+
+                    <p class="muted">
+                        ${summary}
+                    </p>
+
+
+                    <div
+                        style="
+                            display:flex;
+                            gap:20px;
+                            flex-wrap:wrap;
+                            margin-top:15px;
+                        "
+                    >
+
+                        <div>
+
+                            <b>Budget</b>
+
+                            <p>
+                                ₹${budget.toLocaleString("en-IN")}
+                            </p>
+
+                        </div>
+
+
+                        <div>
+
+                            <b>Estimated Total</b>
+
+                            <p>
+                                ₹${estimated.toLocaleString("en-IN")}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+
+    } catch (error) {
+
+        console.error(
+            "Saved Plans Error:",
+            error
+        );
+
+
+        list.innerHTML = `
+
+            <div class="panel">
+
+                <h2>
+                    Unable to load saved plans
+                </h2>
+
+                <p class="muted">
+                    Please try again.
+                </p>
+
+                <button
+                    class="btn"
+                    onclick="loadSavedPlans()"
+                >
+                    Try Again
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+loadSavedPlans();
+
+</script>
+
+{% endblock %}

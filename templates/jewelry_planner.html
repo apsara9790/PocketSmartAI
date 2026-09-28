@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %}
+Jewelry Planner
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container form-wrap">
+
+    <div class="panel">
+
+        <h1>
+            Jewelry Budget Planner
+        </h1>
+
+
+        <p class="muted">
+
+            Upload an outfit image optionally.
+            Gemini image analysis is used
+            only when configured.
+
+        </p>
+
+
+        <div
+            id="message"
+            class="hidden"
+        ></div>
+
+
+        <form
+            id="jewelry-form"
+            onsubmit="submitJewelry(event)"
+            enctype="multipart/form-data"
+        >
+
+
+            <div class="form-group">
+
+                <label>
+                    Budget (₹)
+                </label>
+
+                <input
+                    name="budget"
+                    class="input"
+                    type="number"
+                    min="1"
+                    value="10000"
+                    required
+                >
+
+            </div>
+
+
+            <div class="two">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Occasion
+                    </label>
+
+                    <input
+                        name="occasion"
+                        class="input"
+                        value="Wedding"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Style
+                    </label>
+
+                    <select
+                        name="style"
+                        class="select"
+                    >
+
+                        <option>
+                            modern
+                        </option>
+
+                        <option>
+                            traditional
+                        </option>
+
+                        <option>
+                            minimal
+                        </option>
+
+                        <option>
+                            statement
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Notes
+                </label>
+
+                <textarea
+                    name="notes"
+                    class="textarea"
+                    placeholder="Prefer gold-tone, lightweight, etc."
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Outfit image (optional)
+                </label>
+
+                <input
+                    name="outfit_image"
+                    class="input"
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                >
+
+            </div>
+
+
+            <button
+                class="btn"
+                type="submit"
+            >
+                Generate jewelry recommendations
+            </button>
+
+
+        </form>
+
+
+        <div
+            id="results"
+            class="result"
+        ></div>
+
+
+    </div>
+
+</div>
+
+{% endblock %}

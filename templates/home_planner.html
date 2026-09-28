@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home Planner
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container form-wrap">
+
+    <div class="panel">
+
+        <h1>
+            Home Interior Budget Planner
+        </h1>
+
+        <p class="muted">
+            Enter comma-separated rooms
+            and the items you need.
+        </p>
+
+
+        <div
+            id="message"
+            class="hidden"
+        ></div>
+
+
+        <form
+            onsubmit="submitHome(event)"
+        >
+
+
+            <div class="form-group">
+
+                <label>
+                    Total budget (₹)
+                </label>
+
+                <input
+                    id="budget"
+                    class="input"
+                    type="number"
+                    min="1"
+                    required
+                    value="50000"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Rooms
+                </label>
+
+                <input
+                    id="rooms"
+                    class="input"
+                    value="Living Room, Bedroom"
+                >
+
+            </div>
+
+
+            <div class="two">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Style
+                    </label>
+
+                    <select
+                        id="style"
+                        class="select"
+                    >
+
+                        <option>
+                            modern
+                        </option>
+
+                        <option>
+                            minimal
+                        </option>
+
+                        <option>
+                            traditional
+                        </option>
+
+                        <option>
+                            boho
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Notes
+                    </label>
+
+                    <input
+                        id="notes"
+                        class="input"
+                        placeholder="Example: warm lighting"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <label>
+                Items
+            </label>
+
+
+            <div id="home-items">
+
+
+                <div class="item-row">
+
+                    <input
+                        class="input item-category"
+                        value="Ceiling fan"
+                    >
+
+                    <input
+                        class="input item-qty"
+                        type="number"
+                        min="1"
+                        value="1"
+                    >
+
+                    <button
+                        class="btn secondary"
+                        type="button"
+                        onclick="this.parentElement.remove()"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+
+                <div class="item-row">
+
+                    <input
+                        class="input item-category"
+                        value="Wall light"
+                    >
+
+                    <input
+                        class="input item-qty"
+                        type="number"
+                        min="1"
+                        value="2"
+                    >
+
+                    <button
+                        class="btn secondary"
+                        type="button"
+                        onclick="this.parentElement.remove()"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                class="btn secondary"
+                type="button"
+                onclick="addHomeItem()"
+            >
+                + Add item
+            </button>
+
+
+            <button
+                class="btn"
+                type="submit"
+            >
+                Generate recommendations
+            </button>
+
+
+        </form>
+
+
+        <div
+    id="results"
+    class="result"
+></div>
+
+<div
+    id="save-message"
+    class="hidden"
+    style="margin-top:15px"
+></div>
+
+</div>
+
+</div>
+
+{% endblock %}

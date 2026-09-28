@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+
+.env
+
+pocketsmart.db
+test_pocketsmart.db
+
+uploads/*
+
+.vscode/

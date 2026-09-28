@@ -1,0 +1,130 @@
+[
+  {
+    "planner": "home",
+    "category": "fan",
+    "name": "Energy Efficient Ceiling Fan",
+    "platform": "Amazon",
+    "price": 2499,
+    "tags": "ceiling fan home living bedroom",
+    "link": "https://www.amazon.in/s?k=ceiling+fan"
+  },
+  {
+    "planner": "home",
+    "category": "lighting",
+    "name": "LED Wall Light",
+    "platform": "IKEA",
+    "price": 1299,
+    "tags": "wall light lamp lighting decor",
+    "link": "https://www.ikea.com/in/en/search/?q=wall%20light"
+  },
+  {
+    "planner": "home",
+    "category": "table",
+    "name": "Compact Dining Table",
+    "platform": "IKEA",
+    "price": 8999,
+    "tags": "dining table furniture kitchen",
+    "link": "https://www.ikea.com/in/en/search/?q=dining%20table"
+  },
+  {
+    "planner": "home",
+    "category": "decor",
+    "name": "Minimal Wall Art Set",
+    "platform": "Amazon",
+    "price": 1799,
+    "tags": "wall art decor living room bedroom",
+    "link": "https://www.amazon.in/s?k=wall+art"
+  },
+  {
+    "planner": "home",
+    "category": "storage",
+    "name": "Storage Cabinet",
+    "platform": "Flipkart",
+    "price": 4999,
+    "tags": "cabinet storage bedroom living room",
+    "link": "https://www.flipkart.com/search?q=storage%20cabinet"
+  },
+
+  {
+    "planner": "party",
+    "category": "catering",
+    "name": "Party Catering Package",
+    "platform": "Swiggy",
+    "price": 7500,
+    "tags": "food catering party",
+    "link": "https://www.swiggy.com/"
+  },
+  {
+    "planner": "party",
+    "category": "catering",
+    "name": "Group Food Order",
+    "platform": "Zomato",
+    "price": 6000,
+    "tags": "food catering birthday party",
+    "link": "https://www.zomato.com/"
+  },
+  {
+    "planner": "party",
+    "category": "decoration",
+    "name": "Birthday Decoration Package",
+    "platform": "Amazon",
+    "price": 2500,
+    "tags": "birthday decoration balloons party",
+    "link": "https://www.amazon.in/s?k=birthday+decoration"
+  },
+  {
+    "planner": "party",
+    "category": "venue",
+    "name": "Budget Stay / Event Space Search",
+    "platform": "OYO",
+    "price": 5000,
+    "tags": "venue event accommodation",
+    "link": "https://www.oyorooms.com/"
+  },
+  {
+    "planner": "party",
+    "category": "entertainment",
+    "name": "Party Speaker Set",
+    "platform": "Amazon",
+    "price": 3499,
+    "tags": "speaker entertainment music party",
+    "link": "https://www.amazon.in/s?k=party+speaker"
+  },
+
+  {
+    "planner": "jewelry",
+    "category": "earrings",
+    "name": "Gold-tone Jhumka Earrings",
+    "platform": "Amazon",
+    "price": 1299,
+    "tags": "traditional wedding jhumka gold earrings",
+    "link": "https://www.amazon.in/s?k=jhumka+earrings"
+  },
+  {
+    "planner": "jewelry",
+    "category": "necklace",
+    "name": "Minimal Necklace Set",
+    "platform": "Flipkart",
+    "price": 2199,
+    "tags": "minimal modern necklace occasion",
+    "link": "https://www.flipkart.com/search?q=minimal%20necklace"
+  },
+  {
+    "planner": "jewelry",
+    "category": "bracelet",
+    "name": "Elegant Bracelet",
+    "platform": "Amazon",
+    "price": 1599,
+    "tags": "modern bracelet wedding party",
+    "link": "https://www.amazon.in/s?k=bracelet+jewellery"
+  },
+  {
+    "planner": "jewelry",
+    "category": "set",
+    "name": "Traditional Jewelry Set",
+    "platform": "Flipkart",
+    "price": 3999,
+    "tags": "traditional wedding jewelry set",
+    "link": "https://www.flipkart.com/search?q=traditional%20jewelry%20set"
+  }
+]
