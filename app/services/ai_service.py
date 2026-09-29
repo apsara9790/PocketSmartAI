@@ -17,26 +17,16 @@ from app.services.prompts import (
 
 
 def _money(value: Any) -> float:
-
     try:
-        return round(
-            float(value),
-            2
-        )
-
+        return round(float(value), 2)
     except Exception:
-
         return 0.0
 
 
-def _extract_json(
-    text: str
-) -> dict:
-
+def _extract_json(text: str) -> dict:
     text = text.strip()
 
     if text.startswith("```"):
-
         text = re.sub(
             r"^```(?:json)?",
             "",
@@ -53,7 +43,6 @@ def _extract_json(
     end = text.rfind("}")
 
     if start == -1 or end == -1:
-
         raise ValueError(
             "No JSON object in AI response"
         )
@@ -79,17 +68,11 @@ def _normalize(
 
     clean = []
 
-    if isinstance(
-        recommendations,
-        list
-    ):
+    if isinstance(recommendations, list):
 
         for item in recommendations:
 
-            if not isinstance(
-                item,
-                dict
-            ):
+            if not isinstance(item, dict):
                 continue
 
             price = _money(
@@ -103,16 +86,13 @@ def _normalize(
             )
 
             try:
-
                 quantity = int(
                     item.get(
                         "quantity",
                         1
                     ) or 1
                 )
-
             except Exception:
-
                 quantity = 1
 
             quantity = max(
@@ -122,83 +102,58 @@ def _normalize(
 
             clean.append(
                 {
-                    "name":
-                        str(
-                            item.get(
-                                "name",
-                                "Recommended item"
-                            )
-                        ),
-
-                    "category":
-                        str(
-                            item.get(
-                                "category",
-                                "General"
-                            )
-                        ),
-
-                    "platform":
-                        str(
-                            item.get(
-                                "platform",
-                                "Local catalog"
-                            )
-                        ),
-
-                    "estimated_price":
-                        price,
-
-                    "quantity":
-                        quantity,
-
-                    "reason":
-                        str(
-                            item.get(
-                                "reason",
-                                "Fits the requested budget and preferences."
-                            )
-                        ),
-
-                    "link":
-                        str(
-                            item.get(
-                                "link",
-                                ""
-                            )
+                    "name": str(
+                        item.get(
+                            "name",
+                            "Recommended item"
                         )
+                    ),
+                    "category": str(
+                        item.get(
+                            "category",
+                            "General"
+                        )
+                    ),
+                    "platform": str(
+                        item.get(
+                            "platform",
+                            "Local catalog"
+                        )
+                    ),
+                    "estimated_price": price,
+                    "quantity": quantity,
+                    "reason": str(
+                        item.get(
+                            "reason",
+                            "Fits the requested budget and preferences."
+                        )
+                    ),
+                    "link": str(
+                        item.get(
+                            "link",
+                            ""
+                        )
+                    )
                 }
             )
 
     if not clean:
 
         clean = [
-
             {
-                "name":
-                    item["name"],
-
-                "category":
-                    item["category"],
-
-                "platform":
-                    item["platform"],
-
-                "estimated_price":
-                    _money(
-                        item["price"]
-                    ),
-
-                "quantity":
-                    1,
-
-                "reason":
-                    "Fallback catalog match selected for price and category.",
-
-                "link":
-                    item["link"]
+                "name": item["name"],
+                "category": item["category"],
+                "platform": item["platform"],
+                "estimated_price": _money(
+                    item["price"]
+                ),
+                "quantity": 1,
+                "reason": (
+                    "Fallback catalog match selected "
+                    "for price and category."
+                ),
+                "link": item["link"]
             }
-
             for item in fallback[:8]
         ]
 
@@ -228,7 +183,10 @@ def _normalize(
         )
 
     allocation = (
-        raw.get("allocation", {})
+        raw.get(
+            "allocation",
+            {}
+        )
         if isinstance(raw, dict)
         else {}
     )
@@ -240,59 +198,36 @@ def _normalize(
         allocation = {}
 
     return {
-
-        "planner":
-            planner,
-
-        "title":
-            str(
-                raw.get(
-                    "title",
-                    f"{planner.title()} Budget Plan"
-                )
-            ),
-
-        "budget":
-            budget,
-
-        "estimated_total":
-            total,
-
-        "budget_remaining":
-            round(
-                budget - total,
-                2
-            ),
-
-        "summary":
-            str(
-                raw.get(
-                    "summary",
-                    "A budget-aware recommendation plan was created."
-                )
-            ),
-
-        "allocation":
-            {
-                str(key):
-                    _money(value)
-
-                for key, value
-                in allocation.items()
-            },
-
-        "recommendations":
-            clean,
-
-        "ai_powered":
-            ai_powered,
-
-        "disclaimer":
-            (
-                "Prices and availability are estimates "
-                "from the configured catalog. Verify the "
-                "final price on the linked platform before purchasing."
+        "planner": planner,
+        "title": str(
+            raw.get(
+                "title",
+                f"{planner.title()} Budget Plan"
             )
+        ),
+        "budget": budget,
+        "estimated_total": total,
+        "budget_remaining": round(
+            budget - total,
+            2
+        ),
+        "summary": str(
+            raw.get(
+                "summary",
+                "A budget-aware recommendation plan was created."
+            )
+        ),
+        "allocation": {
+            str(key): _money(value)
+            for key, value in allocation.items()
+        },
+        "recommendations": clean,
+        "ai_powered": ai_powered,
+        "disclaimer": (
+            "Prices and availability are estimates "
+            "from the configured catalog. Verify the "
+            "final price on the linked platform before purchasing."
+        )
     }
 
 
@@ -303,13 +238,11 @@ def _gemini_generate(
 ) -> dict:
 
     if not settings.gemini_api_key:
-
         raise RuntimeError(
             "GEMINI_API_KEY is not configured"
         )
 
     from google import genai
-
     from google.genai import types
 
     client = genai.Client(
@@ -320,10 +253,7 @@ def _gemini_generate(
         prompt
     ]
 
-    if (
-        image_bytes
-        and mime_type
-    ):
+    if image_bytes and mime_type:
 
         contents.append(
             types.Part.from_bytes(
@@ -333,15 +263,10 @@ def _gemini_generate(
         )
 
     response = client.models.generate_content(
-
         model=settings.gemini_model,
-
         contents=contents,
-
         config=types.GenerateContentConfig(
-
             temperature=0.3,
-
             response_mime_type="application/json"
         )
     )
@@ -359,19 +284,34 @@ def generate_home(
         payload["budget"]
     )
 
+    # Get required item categories
     categories = [
         item["category"]
         for item in payload["items"]
     ]
 
+    # Also include selected rooms
+    rooms = payload.get(
+        "rooms",
+        []
+    )
+
+    categories.extend(
+        rooms
+    )
+
+    # Search the complete budget
+    # so higher-priced matching items
+    # like Dining Table can also be found.
     fallback = search_catalog(
         "home",
         categories,
-        budget * 0.45,
+        budget,
         [
             "Amazon",
             "IKEA"
-        ]
+        ],
+        limit=12
     )
 
     try:
@@ -410,25 +350,45 @@ def generate_party(
         payload["budget"]
     )
 
+    event_type = str(
+        payload.get(
+            "event_type",
+            ""
+        )
+    ).strip().lower()
+
     fallback = search_catalog(
-
         "party",
-
         [
             "catering",
             "decoration",
             "venue",
             "entertainment"
         ],
-
         budget * 0.50,
-
         [
             "Swiggy",
             "Zomato",
             "OYO"
         ]
     )
+
+    # Remove birthday-specific
+    # fallback recommendations
+    # for other event types.
+    if event_type != "birthday":
+
+        fallback = [
+            item
+            for item in fallback
+            if "birthday"
+            not in str(
+                item.get(
+                    "name",
+                    ""
+                )
+            ).lower()
+        ]
 
     try:
 
@@ -469,23 +429,18 @@ def generate_jewelry(
     )
 
     fallback = search_catalog(
-
         "jewelry",
-
         [
             payload.get(
                 "style",
                 ""
             ),
-
             payload.get(
                 "occasion",
                 ""
             )
         ],
-
         budget * 0.8,
-
         [
             "Amazon",
             "Flipkart"
@@ -495,15 +450,12 @@ def generate_jewelry(
     try:
 
         raw = _gemini_generate(
-
             jewelry_prompt(
                 payload,
                 fallback,
                 bool(image_bytes)
             ),
-
             image_bytes=image_bytes,
-
             mime_type=mime_type
         )
 

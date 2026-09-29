@@ -7,14 +7,20 @@
 <div class="container" style="padding: 50px 0;">
 
     <div class="panel">
+
         <h1>💾 Saved Plans</h1>
 
         <p class="muted">
             Your saved budget recommendations are shown here.
         </p>
+
     </div>
 
-    <div id="saved-plans-list" style="margin-top: 25px;">
+
+    <div
+        id="saved-plans-list"
+        style="margin-top: 25px;"
+    >
 
         <div class="panel">
             Loading saved plans...
@@ -22,9 +28,13 @@
 
     </div>
 
+
     <div style="margin-top: 25px;">
 
-        <a href="/dashboard" class="btn secondary">
+        <a
+            href="/dashboard"
+            class="btn secondary"
+        >
             ← Back to Dashboard
         </a>
 
@@ -37,7 +47,8 @@
 
 async function loadSavedPlans() {
 
-    const list = document.getElementById("saved-plans-list");
+    const list =
+        document.getElementById("saved-plans-list");
 
     try {
 
@@ -49,7 +60,8 @@ async function loadSavedPlans() {
             }
         );
 
-        const data = await response.json();
+        const data =
+            await response.json();
 
 
         if (!response.ok) {
@@ -57,10 +69,15 @@ async function loadSavedPlans() {
             list.innerHTML = `
                 <div class="panel">
 
-                    <h2>Unable to load saved plans</h2>
+                    <h2>
+                        Unable to load saved plans
+                    </h2>
 
                     <p class="muted">
-                        ${data.detail || "Something went wrong."}
+                        ${
+                            data.detail ||
+                            "Something went wrong."
+                        }
                     </p>
 
                 </div>
@@ -70,12 +87,17 @@ async function loadSavedPlans() {
         }
 
 
-        if (!Array.isArray(data) || data.length === 0) {
+        if (
+            !Array.isArray(data) ||
+            data.length === 0
+        ) {
 
             list.innerHTML = `
                 <div class="panel">
 
-                    <h2>No Saved Plans Yet 📭</h2>
+                    <h2>
+                        No Saved Plans Yet 📭
+                    </h2>
 
                     <p class="muted">
                         Generate a recommendation and save it
@@ -89,122 +111,170 @@ async function loadSavedPlans() {
         }
 
 
-        list.innerHTML = data.map(function(plan) {
+        list.innerHTML =
+            data.map(function(plan) {
 
-            let icon = "📋";
-            let name = "Recommendation";
-
-
-            if (plan.planner_type === "home") {
-
-                icon = "🏠";
-                name = "Home Planner";
-
-            } else if (plan.planner_type === "party") {
-
-                icon = "🎉";
-                name = "Party Planner";
-
-            } else if (plan.planner_type === "jewelry") {
-
-                icon = "💎";
-                name = "Jewelry Planner";
-
-            }
+                let icon = "📋";
+                let name = "Recommendation";
 
 
-            const response = plan.response || {};
+                if (
+                    plan.planner_type === "home"
+                ) {
 
-            const title =
-                response.title ||
-                name + " Recommendation";
+                    icon = "🏠";
+                    name = "Home Planner";
 
-            const summary =
-                response.summary ||
-                "Saved recommendation";
+                } else if (
+                    plan.planner_type === "party"
+                ) {
 
-            const budget =
-                Number(response.budget || 0);
+                    icon = "🎉";
+                    name = "Party Planner";
 
-            const estimated =
-                Number(response.estimated_total || 0);
+                } else if (
+                    plan.planner_type === "jewelry"
+                ) {
 
+                    icon = "💎";
+                    name = "Jewelry Planner";
 
-            return `
-
-                <div
-                    class="panel"
-                    style="margin-bottom: 20px;"
-                >
-
-                    <div
-                        style="
-                            display:flex;
-                            justify-content:space-between;
-                            align-items:center;
-                            gap:10px;
-                            flex-wrap:wrap;
-                        "
-                    >
-
-                        <h2>
-                            ${icon} ${name}
-                        </h2>
-
-                        <span class="muted">
-                            ${plan.created_at || ""}
-                        </span>
-
-                    </div>
+                }
 
 
-                    <h3>
-                        ${title}
-                    </h3>
+                const response =
+                    plan.response || {};
 
 
-                    <p class="muted">
-                        ${summary}
-                    </p>
+                const title =
+                    response.title ||
+                    name + " Recommendation";
 
+
+                const summary =
+                    response.summary ||
+                    "Saved recommendation";
+
+
+                const budget =
+                    Number(
+                        response.budget || 0
+                    );
+
+
+                const estimated =
+                    Number(
+                        response.estimated_total || 0
+                    );
+
+
+                const planId =
+                    plan.id;
+
+
+                return `
 
                     <div
-                        style="
-                            display:flex;
-                            gap:20px;
-                            flex-wrap:wrap;
-                            margin-top:15px;
-                        "
+                        class="panel"
+                        style="margin-bottom: 20px;"
                     >
 
-                        <div>
+                        <div
+                            style="
+                                display:flex;
+                                justify-content:space-between;
+                                align-items:center;
+                                gap:10px;
+                                flex-wrap:wrap;
+                            "
+                        >
 
-                            <b>Budget</b>
+                            <h2>
+                                ${icon} ${name}
+                            </h2>
 
-                            <p>
-                                ₹${budget.toLocaleString("en-IN")}
-                            </p>
+                            <span class="muted">
+                                ${plan.created_at || ""}
+                            </span>
 
                         </div>
 
 
-                        <div>
+                        <h3>
+                            ${title}
+                        </h3>
 
-                            <b>Estimated Total</b>
 
-                            <p>
-                                ₹${estimated.toLocaleString("en-IN")}
-                            </p>
+                        <p class="muted">
+                            ${summary}
+                        </p>
+
+
+                        <div
+                            style="
+                                display:flex;
+                                gap:20px;
+                                flex-wrap:wrap;
+                                margin-top:15px;
+                            "
+                        >
+
+                            <div>
+
+                                <b>
+                                    Budget
+                                </b>
+
+                                <p>
+                                    ₹${budget.toLocaleString("en-IN")}
+                                </p>
+
+                            </div>
+
+
+                            <div>
+
+                                <b>
+                                    Estimated Total
+                                </b>
+
+                                <p>
+                                    ₹${estimated.toLocaleString("en-IN")}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            style="
+                                margin-top:20px;
+                                display:flex;
+                                gap:10px;
+                                flex-wrap:wrap;
+                            "
+                        >
+
+                            <button
+                                class="btn"
+                                style="
+                                    background:#dc3545;
+                                "
+                                onclick="
+                                    removeSavedPlan(${planId})
+                                "
+                            >
+                                🗑️ Remove
+                            </button>
 
                         </div>
 
                     </div>
 
-                </div>
+                `;
 
-            `;
-
-        }).join("");
+            }).join("");
 
 
     } catch (error) {
@@ -242,6 +312,83 @@ async function loadSavedPlans() {
 
 }
 
+
+/* =========================================
+   REMOVE SAVED PLAN
+========================================= */
+
+async function removeSavedPlan(planId) {
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to remove this saved plan?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/saved-plans/${planId}`,
+                {
+                    method: "DELETE",
+                    credentials: "include"
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            alert(
+                data.detail ||
+                "Unable to remove saved plan."
+            );
+
+            return;
+        }
+
+
+        alert(
+            "Saved plan removed successfully!"
+        );
+
+
+        /* Refresh the saved plans list */
+
+        loadSavedPlans();
+
+
+    } catch (error) {
+
+        console.error(
+            "Remove Saved Plan Error:",
+            error
+        );
+
+
+        alert(
+            "Something went wrong. Please try again."
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   LOAD SAVED PLANS
+========================================= */
 
 loadSavedPlans();
 

@@ -71,6 +71,13 @@ def party_prompt(
 You are PocketSmart AI,
 a party budget planning assistant.
 
+Create a practical and event-specific
+party planning recommendation.
+
+The selected event type is very important.
+All recommendations must match the
+selected event type.
+
 USER INPUT:
 
 {json.dumps(
@@ -85,26 +92,73 @@ LOCAL CATALOG:
     indent=2
 )}
 
-Rules:
+EVENT-SPECIFIC RULES:
 
-1. Keep the plan within the total budget.
+1. If the event type is "Birthday",
+   recommend birthday-appropriate
+   food, decoration, venue and
+   entertainment.
 
-2. Account for guest count.
+2. If the event type is "Wedding",
+   recommend wedding-appropriate
+   food, decoration, venue and
+   entertainment.
+   Do not give birthday-party
+   recommendations.
 
-3. Cover food/catering,
-venue, decoration and
-entertainment where possible.
+3. If the event type is "Corporate",
+   recommend corporate-event
+   appropriate food, venue,
+   decoration and entertainment.
 
-4. Prefer the supplied catalog.
+4. If the event type is "Family function",
+   recommend family-function
+   appropriate food, venue,
+   decoration and entertainment.
 
-5. Return valid JSON only.
+5. Never mix recommendations from
+   another event type.
 
-JSON keys:
+6. Keep the plan within the total budget.
 
-title,
-summary,
-allocation,
-recommendations
+7. Account for the guest count.
+
+8. Cover food/catering, venue,
+   decoration and entertainment
+   where possible.
+
+9. Prefer the supplied catalog.
+
+10. Do not invent unrealistic prices.
+
+11. Use the user's venue, city and
+    preferences when provided.
+
+12. Return valid JSON only.
+
+JSON structure:
+
+{{
+  "title": "...",
+  "summary": "...",
+  "allocation": {{
+    "food": 1000,
+    "venue": 1000,
+    "decoration": 1000,
+    "entertainment": 1000
+  }},
+  "recommendations": [
+    {{
+      "name": "...",
+      "category": "...",
+      "platform": "...",
+      "estimated_price": 1000,
+      "quantity": 1,
+      "reason": "...",
+      "link": "..."
+    }}
+  ]
+}}
 """
 
 
@@ -149,16 +203,16 @@ Rules:
 1. Stay within the budget.
 
 2. Recommend jewelry suitable
-for the occasion.
+   for the occasion.
 
 3. Match the requested style.
 
 4. If an image is available,
-use it only for broad
-color/style coordination.
+   use it only for broad
+   color/style coordination.
 
 5. Do not identify the person
-in the image.
+   in the image.
 
 6. Return valid JSON only.
 

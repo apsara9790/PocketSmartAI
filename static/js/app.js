@@ -591,7 +591,7 @@ async function submitParty(event) {
 
         const notes =
             document.getElementById(
-                "notes"
+                "preferences"
             ).value;
 
 
@@ -605,7 +605,7 @@ async function submitParty(event) {
 
             venue: venue,
 
-            notes: notes
+            preferences: notes
         };
 
 
