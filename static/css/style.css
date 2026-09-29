@@ -1,3 +1,7 @@
+/* =========================================
+   GLOBAL
+========================================= */
+
 * {
     box-sizing: border-box;
 }
@@ -14,7 +18,12 @@ body {
     margin: auto;
 }
 
-.nav {
+
+/* =========================================
+   NAVIGATION BAR
+========================================= */
+
+.navbar {
     background: white;
     border-bottom: 1px solid #e7eaf0;
     position: sticky;
@@ -22,10 +31,14 @@ body {
     z-index: 10;
 }
 
-.nav-inner {
+.nav-container {
+    width: min(1120px, 92%);
+    margin: auto;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     padding: 16px 0;
 }
 
@@ -36,11 +49,27 @@ body {
     text-decoration: none;
 }
 
-.nav a {
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.nav-links a {
     color: #273043;
     text-decoration: none;
-    margin-left: 18px;
+    margin: 0;
+    font-weight: 500;
 }
+
+.nav-links a:hover {
+    color: #5b4bdb;
+}
+
+
+/* =========================================
+   HERO SECTION
+========================================= */
 
 .hero {
     padding: 72px 0;
@@ -64,6 +93,11 @@ body {
     color: #596174;
 }
 
+
+/* =========================================
+   BUTTONS
+========================================= */
+
 .btn {
     display: inline-block;
     border: 0;
@@ -76,23 +110,34 @@ body {
     font-weight: 700;
 }
 
+.btn:hover {
+    opacity: 0.9;
+}
+
 .btn.secondary {
     background: #e9e7ff;
     color: #4a3dc2;
 }
 
+
+/* =========================================
+   GRID
+========================================= */
+
 .grid {
     display: grid;
-    grid-template-columns: repeat(
-        3,
-        1fr
-    );
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
 
 .cards {
     padding: 50px 0;
 }
+
+
+/* =========================================
+   CARDS / PANELS
+========================================= */
 
 .card,
 .panel {
@@ -104,6 +149,11 @@ body {
         0 8px 30px
         rgba(31, 38, 60, 0.05);
 }
+
+
+/* =========================================
+   FORMS
+========================================= */
 
 .form-wrap {
     max-width: 720px;
@@ -131,8 +181,16 @@ body {
     background: white;
 }
 
+.input:focus,
+.select:focus,
+.textarea:focus {
+    outline: none;
+    border-color: #5b4bdb;
+}
+
 .textarea {
     min-height: 100px;
+    resize: vertical;
 }
 
 .two {
@@ -141,13 +199,22 @@ body {
     gap: 15px;
 }
 
+
+/* =========================================
+   ITEM ROW
+========================================= */
+
 .item-row {
     display: grid;
-    grid-template-columns:
-        1fr 100px 40px;
+    grid-template-columns: 1fr 100px 40px;
     gap: 10px;
     margin-bottom: 10px;
 }
+
+
+/* =========================================
+   RESULTS
+========================================= */
 
 .result {
     margin-top: 24px;
@@ -155,8 +222,7 @@ body {
 
 .rec-grid {
     display: grid;
-    grid-template-columns:
-        repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 14px;
 }
 
@@ -172,6 +238,11 @@ body {
     font-size: 19px;
 }
 
+
+/* =========================================
+   BADGE
+========================================= */
+
 .badge {
     display: inline-block;
     padding: 4px 8px;
@@ -182,9 +253,19 @@ body {
     font-weight: 700;
 }
 
+
+/* =========================================
+   TEXT
+========================================= */
+
 .muted {
     color: #697386;
 }
+
+
+/* =========================================
+   ERROR / SUCCESS
+========================================= */
 
 .error {
     color: #b42318;
@@ -200,12 +281,22 @@ body {
     border-radius: 8px;
 }
 
+
+/* =========================================
+   FOOTER
+========================================= */
+
 .footer {
     padding: 35px 0;
     margin-top: 50px;
     background: #111827;
     color: #cdd3df;
 }
+
+
+/* =========================================
+   UTILITY
+========================================= */
 
 .hidden {
     display: none;
@@ -214,6 +305,11 @@ body {
 .center {
     text-align: center;
 }
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
 
 @media (max-width: 800px) {
 
@@ -230,7 +326,14 @@ body {
         grid-template-columns: 1fr;
     }
 
+    .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
     .nav-links {
-        display: none;
+        flex-wrap: wrap;
+        gap: 14px;
     }
 }

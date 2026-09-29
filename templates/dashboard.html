@@ -1,57 +1,125 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}
+Dashboard
+{% endblock %}
+
 
 {% block content %}
 
-<div class="container" style="padding:50px 0">
+<div class="container" style="padding: 50px 0;">
 
-    <!-- =========================
+    <!-- ================================
          WELCOME SECTION
-    ========================== -->
+    ================================= -->
 
     <div class="panel">
 
         <h1>
-            Welcome to PocketSmart AI 👋
+            Welcome, {{ user["name"] }}! 👋
         </h1>
 
         <p class="muted">
-            Manage your budget plans, planners and recommendation
-            history from one place.
+            Manage your budget plans and recommendations
+            from your dashboard.
         </p>
 
     </div>
 
 
-    <!-- =========================
-         THREE MAIN BOXES
-    ========================== -->
+    <!-- ================================
+         DASHBOARD OPTIONS
+    ================================= -->
 
     <div
-        style="
-            display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-            gap:25px;
-            margin-top:30px;
-        "
+        class="grid"
+        style="margin-top: 25px;"
     >
 
-        <!-- =====================
-             SAVED PLANS
-        ====================== -->
+        <!-- HOME PLANNER -->
 
-        <div class="panel">
+        <div class="card">
 
-            <h2>💾 Saved Plans</h2>
+            <h2>
+                🏠 Home Planner
+            </h2>
 
             <p class="muted">
-                View the plans that you have specifically saved.
+                Plan your home interior within your budget
+                and get smart recommendations.
+            </p>
+
+            <a
+                href="/home-planner"
+                class="btn"
+            >
+                Open Home Planner
+            </a>
+
+        </div>
+
+
+        <!-- PARTY PLANNER -->
+
+        <div class="card">
+
+            <h2>
+                🎉 Party Planner
+            </h2>
+
+            <p class="muted">
+                Plan your party based on your budget,
+                guests and event type.
+            </p>
+
+            <a
+                href="/party-planner"
+                class="btn"
+            >
+                Open Party Planner
+            </a>
+
+        </div>
+
+
+        <!-- JEWELRY PLANNER -->
+
+        <div class="card">
+
+            <h2>
+                💎 Jewelry Planner
+            </h2>
+
+            <p class="muted">
+                Get jewelry recommendations based on
+                your budget, occasion and style.
+            </p>
+
+            <a
+                href="/jewelry-planner"
+                class="btn"
+            >
+                Open Jewelry Planner
+            </a>
+
+        </div>
+
+
+        <!-- SAVED PLANS -->
+
+        <div class="card">
+
+            <h2>
+                💾 Saved Plans
+            </h2>
+
+            <p class="muted">
+                View the recommendations you saved earlier.
             </p>
 
             <a
                 href="/saved-plans"
-                class="btn"
+                class="btn secondary"
             >
                 View Saved Plans
             </a>
@@ -59,68 +127,21 @@
         </div>
 
 
-        <!-- =====================
-             PLANNERS
-        ====================== -->
+        <!-- HISTORY -->
 
-        <div class="panel">
+        <div class="card">
 
-            <h2>🧩 Planners</h2>
-
-            <p class="muted">
-                Choose a planner and create a new recommendation.
-            </p>
-
-            <div
-                style="
-                    display:flex;
-                    flex-direction:column;
-                    gap:10px;
-                    margin-top:15px;
-                "
-            >
-
-                <a
-                    href="/home-planner"
-                    class="btn"
-                >
-                    🏠 Home Planner
-                </a>
-
-                <a
-                    href="/party-planner"
-                    class="btn"
-                >
-                    🎉 Party Planner
-                </a>
-
-                <a
-                    href="/jewelry-planner"
-                    class="btn"
-                >
-                    💎 Jewelry Planner
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <!-- =====================
-             HISTORY
-        ====================== -->
-
-        <div class="panel">
-
-            <h2>📜 History</h2>
+            <h2>
+                📜 History
+            </h2>
 
             <p class="muted">
-                View all recommendations that you have generated.
+                View your previous recommendation history.
             </p>
 
             <a
                 href="/history"
-                class="btn"
+                class="btn secondary"
             >
                 View History
             </a>

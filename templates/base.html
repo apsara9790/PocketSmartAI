@@ -1,14 +1,13 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1"
+        content="width=device-width, initial-scale=1.0"
     >
 
     <title>
@@ -24,71 +23,139 @@
 
 </head>
 
+
 <body>
 
-<nav class="nav">
+    <!-- ================================
+         NAVIGATION BAR
+    ================================= -->
 
-    <div class="container nav-inner">
+    {% if request.url.path not in ["/login", "/register"] %}
 
-        <a
-            class="brand"
-            href="/"
-        >
-            PocketSmart AI
-        </a>
+    <header>
 
-        <div class="nav-links">
+        <nav class="navbar">
 
-            <a href="/home-planner">
-                Home
-            </a>
+            <div class="nav-container">
 
-            <a href="/party-planner">
-                Party
-            </a>
-
-            <a href="/jewelry-planner">
-                Jewelry
-            </a>
-
-            <a href="/history">
-                History
-            </a>
-
-            <a href="/dashboard">
-                Dashboard
-            </a>
-
-            <a href="/login">
-                Login
-            </a>
-
-        </div>
-
-    </div>
-
-</nav>
+                <a
+                    href="/"
+                    class="brand"
+                >
+                    PocketSmart AI
+                </a>
 
 
-{% block content %}
+                <div class="nav-links">
 
-{% endblock %}
+                    <a href="/">
+                        Home
+                    </a>
+
+                    <a href="/party-planner">
+                        Party
+                    </a>
+
+                    <a href="/jewelry-planner">
+                        Jewelry
+                    </a>
+
+                    <a href="/history">
+                        History
+                    </a>
+
+                    <a href="/dashboard">
+                        Dashboard
+                    </a>
+
+                    <a href="/login">
+                        Login
+                    </a>
+
+                    <a
+                        href="#"
+                        onclick="logoutUser(); return false;"
+                    >
+                        Logout
+                    </a>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+    {% endif %}
 
 
-<footer class="footer">
+    <!-- ================================
+         MAIN CONTENT
+    ================================= -->
 
-    <div class="container">
+    <main>
 
-        PocketSmart AI ·
-        Budget-aware planning
-        with Generative AI
+        {% block content %}
 
-    </div>
+        {% endblock %}
 
-</footer>
+    </main>
 
 
-<script src="/static/js/app.js?v=2"></script>
+    <!-- ================================
+         JAVASCRIPT
+    ================================= -->
+
+    <script src="/static/js/app.js?v=2"></script>
+
+
+    <script>
+
+        async function logoutUser() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/auth/logout",
+                        {
+                            method: "POST",
+                            credentials: "include"
+                        }
+                    );
+
+
+                if (response.ok) {
+
+                    window.location.href =
+                        "/login";
+
+                } else {
+
+                    alert(
+                        "Logout failed"
+                    );
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Logout Error:",
+                    error
+                );
+
+                alert(
+                    "Something went wrong during logout."
+                );
+
+            }
+
+        }
+
+    </script>
+
 
 </body>
 
